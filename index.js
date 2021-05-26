@@ -1,15 +1,44 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
+const socketIo = require('socket.io');
+const http = require('http');
+
 const routes = require('./routes/api');
 const fantasyTeamRoutes = require('./routes/fantasyTeamRoutes');
 
-const path = require('path');
 require('dotenv').config();
+
+const port = process.env.PORT || 5000;
+const websocketPort = 4000;
 
 const app = express();
 
-const port = process.env.PORT || 5000;
+const server = http.createServer(app);
+server.listen(websocketPort, () => console.log(`Websocket listening on port ${websocketPort}`));
+
+const io = socketIo(server);
+
+const getApiAndEmit = socket => {
+  const response = new Date();
+  // Emitting a new message. Will be consumed by the client
+  socket.emit('FromAPI', response);
+};
+
+let interval;
+
+io.on('connection', socket => {
+  console.log('New client connected');
+  if (interval) {
+    clearInterval(interval);
+  }
+  interval = setInterval(() => getApiAndEmit(socket), 1000);
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+    clearInterval(interval);
+  });
+});
 
 // connect to the database
 mongoose
