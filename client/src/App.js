@@ -6,8 +6,9 @@ import './App.css';
 
 function App() {
   useEffect(() => {
-    axios.get('/api/teams').then(console.log).catch(console.log);
+    axios.get('/api/fantasyTeams').then(console.log).catch(console.log);
   }, []);
+
   return (
     <div className="App">
       <header className="App-header">

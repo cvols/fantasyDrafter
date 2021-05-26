@@ -4,19 +4,12 @@ const Team = require('../models/team');
 
 const FantasyTeamController = require('../controllers/fantasyTeamController');
 const PlayerController = require('../controllers/playerController');
+const TeamController = require('../controllers/teamController');
 
-// get fantasy team
-router.get('/fantasyTeams/:id', async (req, res) => {
-  const fantasyTeam = await FantasyTeamController.getFantasyTeam(req, res);
+router.get('/teams', async (req, res) => {
+  const teams = await TeamController.getNhlTeams();
 
-  res.status(200).send(fantasyTeam);
-});
-
-// create fantasy team
-router.post('/fantasyTeams', async (req, res) => {
-  const fantasyTeam = await FantasyTeamController.createFantasyTeam(req, res);
-
-  res.status(200).send(fantasyTeam);
+  res.status(200).send(teams);
 });
 
 // draft player

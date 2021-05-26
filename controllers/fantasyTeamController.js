@@ -1,5 +1,27 @@
 const FantasyTeam = require('../models/fantasyTeam');
 
+exports.getFantasyTeam = async (req, res, next) => {
+  const fantasyTeam = await FantasyTeam.findOne({ _id: req.params.id })
+    .then(resp => {
+      return resp;
+    })
+    .catch(next);
+
+  return { fantasyTeam };
+};
+
+exports.getFantasyTeams = async (req, res) => {
+  const fantasyTeams = await FantasyTeam.find({}, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      return data;
+    }
+  });
+
+  return { fantasyTeams };
+};
+
 exports.createFantasyTeam = async (req, res) => {
   const fantasyTeam = await FantasyTeam.create(req.body, (err, data) => {
     if (err) {
@@ -8,16 +30,6 @@ exports.createFantasyTeam = async (req, res) => {
       return data;
     }
   });
-
-  return { fantasyTeam };
-};
-
-exports.getFantasyTeam = async (req, res, next) => {
-  const fantasyTeam = await FantasyTeam.findOne({ _id: req.params.id })
-    .then(resp => {
-      return resp;
-    })
-    .catch(next);
 
   return { fantasyTeam };
 };
