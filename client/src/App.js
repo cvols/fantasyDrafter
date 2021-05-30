@@ -5,11 +5,11 @@ import logo from './logo.svg';
 import './App.css';
 
 import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:4000', { transports: ['websocket'] });
+const socket = openSocket('http://127.0.0.1:4000', { transports: ['websocket'] });
 
 function App() {
   useEffect(() => {
-    axios.get('/api/fantasyTeams').then(console.log).catch(console.log);
+    axios.get('/api/teams').then(console.log).catch(console.log);
   }, []);
 
   const [response, setResponse] = useState('');
