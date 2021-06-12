@@ -1,5 +1,4 @@
 const https = require('https');
-const Todo = require('./models/team');
 
 https
   .get('https://statsapi.web.nhl.com/api/v1/teams', resp => {
