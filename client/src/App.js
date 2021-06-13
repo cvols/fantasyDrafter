@@ -5,6 +5,8 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 import { LoginForm } from './Components';
 import theme from './theme';
+import { DataLayer } from './Context/Context';
+import reducer, { initialState } from './Context/reducer';
 
 import openSocket from 'socket.io-client';
 const socket = openSocket('http://127.0.0.1:4000', { transports: ['websocket'] });
@@ -25,23 +27,25 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <div>
-          <Switch>
-            {user ? (
-              <Route path="/">
-                <LoginForm />
-              </Route>
-            ) : (
-              <Route path="/">
-                <LoginForm />
-              </Route>
-            )}
-          </Switch>
-        </div>
-      </Router>
-    </ThemeProvider>
+    <DataLayer initialState={initialState} reducer={reducer}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <div>
+            <Switch>
+              {user ? (
+                <Route path="/">
+                  <LoginForm />
+                </Route>
+              ) : (
+                <Route path="/">
+                  <LoginForm />
+                </Route>
+              )}
+            </Switch>
+          </div>
+        </Router>
+      </ThemeProvider>
+    </DataLayer>
   );
 }
 

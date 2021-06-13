@@ -15,6 +15,10 @@ const Login = ({ email, setEmail, password, setPassword }) => {
         onChange={event => setEmail(event.target.value)}
         variant="outlined"
         className={classes.textField}
+        type="email"
+        required
+        error
+        helperText="Email is required"
       />
       <TextField
         label="Password"
@@ -22,6 +26,8 @@ const Login = ({ email, setEmail, password, setPassword }) => {
         onChange={event => setPassword(event.target.value)}
         variant="outlined"
         className={classes.textField}
+        type="password"
+        required
       />
     </React.Fragment>
   );

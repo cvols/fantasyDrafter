@@ -15,6 +15,7 @@ const SingUp = ({ firstName, setFirstName, lastName, setLastName }) => {
         onChange={event => setFirstName(event.target.value)}
         variant="outlined"
         className={classes.textField}
+        required
       />
       <TextField
         label="Last Name"
@@ -22,6 +23,7 @@ const SingUp = ({ firstName, setFirstName, lastName, setLastName }) => {
         onChange={event => setLastName(event.target.value)}
         variant="outlined"
         className={classes.textField}
+        required
       />
     </React.Fragment>
   );
